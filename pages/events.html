@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events - GOD Kingdom Seekers Church</title>
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --red: #d62828;
+            --blue: #003566;
+            --yellow: #ffcc00;
+            --dark-bg: #0a0a0f;
+            --light-text: #f8f9fa;
+            --card-bg: #1b1b2f;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--blue), var(--dark-bg));
+            color: var(--light-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header styles */
+        header {
+            background: linear-gradient(90deg, var(--blue), var(--red));
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-bottom: 3px solid var(--yellow);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+             background: linear-gradient(to right, var(--yellow), white);
+            -webkit-background-clip: text;
+            color: transparent; 
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav li {
+            margin-left: 1.5rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Page header */
+        .page-header {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://images.unsplash.com/photo-1518837695005-2083093ee35b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 4rem 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, var(--yellow), var(--red));
+            -webkit-background-clip: text;
+            color: transparent;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Main content sections */
+        section {
+            padding: 4rem 0;
+            background: linear-gradient(to right, var(--yellow), var(--red));;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2rem;
+            color: var(--yellow);
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 70px;
+            height: 3px;
+            background-color: var(--yellow);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* Events section */
+        .events {
+            background-color: white;
+        }
+
+        .events-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .no-events {
+            background-color: var(--blue);
+            padding: 3rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+        .no-events h3 {
+            color: var(--yellow);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .no-events p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        /* Admin login section */
+        .admin-login {
+            background-color: var(--blue);
+            padding: 3rem;
+            border-radius: 8px;
+            max-width: 500px;
+            margin: 0 auto;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .admin-login h3 {
+            color: var(--yellow);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-size: 1.5rem;
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--yellow);
+        }
+
+        .login-btn {
+            background-color: var(--red);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .login-btn:hover {
+            background-color: rgb(126, 52, 52);
+        }
+
+        /* Admin panel (hidden by default) */
+        .admin-panel {
+            display: none;
+            background-color: white;
+            padding: 3rem;
+            border-radius: 8px;
+            max-width: 800px;
+            margin: 2rem auto 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .admin-panel h3 {
+            color: var(--yellow);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-size: 1.5rem;
+        }
+
+        .event-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background-color: var(--red);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #8d2f2f;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #545b62;
+        }
+
+        /* Events list (when events are added) */
+        .events-list {
+            display: none;
+            margin-top: 2rem;
+        }
+
+        .event-card {
+            background-color: var(--blue);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .event-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .event-title {
+            color: var(--yellow);
+            font-size: 1.5rem;
+        }
+
+        .event-date {
+            background-color: orangered;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .event-description {
+            margin-bottom: 1rem;
+        }
+
+        .event-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.5rem;
+        }
+
+        .btn-sm {
+            padding: 0.4rem 0.8rem;
+            font-size: 0.9rem;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(90deg, var(--red), var(--blue));;
+            color: white;
+            padding: 3rem 0 1rem;
+            border-top: 3px solid var(--yellow);
+        }
+
+        .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 2px;
+            background-color: var(--accent);
+            bottom: 0;
+            left: 0;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--primary);
+                flex-direction: column;
+                padding: 1rem 0;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            nav li {
+                margin: 0;
+                text-align: center;
+                padding: 0.8rem 0;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .page-header p {
+                font-size: 1rem;
+            }
+
+            .form-row {
+                flex-direction: column;
+            }
+
+            .event-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <h1>GOD <span>Kingdom Seekers</span> Church</h1>
+            </div>
+            <button class="mobile-menu-btn">☰</button>
+            <nav>
+                <ul>
+                    <li><a href="../pages/home.html">Home</a></li>
+                    <li><a href="../pages/about.html">About</a></li>
+                    <li><a href="../pages/events.html" class="active">Events</a></li>
+                    <li><a href="../pages/service.html">Service</a></li>
+                    <li><a href="../pages/contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Upcoming Events</h1>
+            <p>Join us for our church events and activities</p>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section class="events">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Events</h2>
+            </div>
+            <div class="events-container">
+                <!-- No events message -->
+                <div class="no-events" id="no-events">
+                    <h3>No events scheduled yet</h3>
+                    <p>Adults can add events using the form above</p>
+                </div>
+
+                <!-- Events list (initially hidden) -->
+                <div class="events-list" id="events-list">
+                    <!-- Events will be dynamically added here -->
+                </div>
+
+                <!-- Admin login section -->
+                <div class="admin-login">
+                    <h3>Admin Login</h3>
+                    <p>Login to manage events</p>
+                    <form class="login-form" id="login-form">
+                        <div class="form-group">
+                            <label for="admin-password">Enter admin password</label>
+                            <input type="password" id="admin-password" placeholder="Enter password" required>
+                        </div>
+                        <button type="submit" class="login-btn">Login as Admin</button>
+                    </form>
+                </div>
+
+                <!-- Admin panel (initially hidden) -->
+                <div class="admin-panel" id="admin-panel">
+                    <h3>Add New Event</h3>
+                    <form class="event-form" id="event-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="event-title">Event Title</label>
+                                <input type="text" id="event-title" placeholder="Event title" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="event-date">Event Date</label>
+                                <input type="date" id="event-date" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="event-time">Event Time</label>
+                                <input type="time" id="event-time" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="event-location">Location</label>
+                                <input type="text" id="event-location" placeholder="Event location" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="event-description">Event Description</label>
+                            <textarea id="event-description" rows="4" placeholder="Event description" required></textarea>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" id="logout-btn">Logout</button>
+                            <button type="submit" class="btn btn-primary">Add Event</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-section">
+                    <h3>GOD Kingdom Seekers Church</h3>
+                    <p>Seeking His Kingdom First in everything we do.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="../pages/home.html">Home</a></li>
+                        <li><a href="../pages/about.html">About</a></li>
+                        <li><a href="../pages/events.html">Events</a></li>
+                        <li><a href="../pages/service.html">Service</a></li>
+                        <li><a href="../pages/contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li>Email: gkschurch@outlook.come</li>
+                        <li>Phone: 076 314 7491</li>
+                        <li>Address: 5292 Phase 4 Hlalanikahle, eMalahleni Mpumalanga</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; <span id="year"></span> GOD Kingdom Seekers Church. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            document.querySelector('nav ul').classList.toggle('active');
+        });
+
+        // Admin password (in a real app, this would be handled server-side)
+        const ADMIN_PASSWORD = "church2025";
+
+        // Events array to store added events
+        let events = [];
+
+        // DOM elements
+        const loginForm = document.getElementById('login-form');
+        const adminPanel = document.getElementById('admin-panel');
+        const eventForm = document.getElementById('event-form');
+        const noEvents = document.getElementById('no-events');
+        const eventsList = document.getElementById('events-list');
+        const logoutBtn = document.getElementById('logout-btn');
+
+        // Login form submission
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const password = document.getElementById('admin-password').value;
+            
+            if (password === ADMIN_PASSWORD) {
+                // Show admin panel
+                adminPanel.style.display = 'block';
+                document.querySelector('.admin-login').style.display = 'none';
+                document.getElementById('admin-password').value = '';
+            } else {
+                alert('Incorrect password. Please try again.');
+            }
+        });
+
+        // Logout button
+        logoutBtn.addEventListener('click', function() {
+            adminPanel.style.display = 'none';
+            document.querySelector('.admin-login').style.display = 'block';
+        });
+
+        // Event form submission
+        eventForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const title = document.getElementById('event-title').value;
+            const date = document.getElementById('event-date').value;
+            const time = document.getElementById('event-time').value;
+            const location = document.getElementById('event-location').value;
+            const description = document.getElementById('event-description').value;
+            
+            // Create event object
+            const event = {
+                id: Date.now(), // Simple ID generation
+                title,
+                date,
+                time,
+                location,
+                description
+            };
+            
+            // Add to events array
+            events.push(event);
+            
+            // Update UI
+            renderEvents();
+            
+            // Reset form
+            eventForm.reset();
+            
+            // Show success message
+            alert('Event added successfully!');
+        });
+
+        // Function to render events
+        function renderEvents() {
+            if (events.length === 0) {
+                noEvents.style.display = 'block';
+                eventsList.style.display = 'none';
+            } else {
+                noEvents.style.display = 'none';
+                eventsList.style.display = 'block';
+                
+                // Clear current events
+                eventsList.innerHTML = '';
+                
+                // Add each event
+                events.forEach(event => {
+                    const eventCard = document.createElement('div');
+                    eventCard.className = 'event-card';
+                    eventCard.innerHTML = `
+                        <div class="event-header">
+                            <h3 class="event-title">${event.title}</h3>
+                            <div class="event-date">${formatDate(event.date)}</div>
+                        </div>
+                        <div class="event-description">
+                            <p><strong>Time:</strong> ${event.time}</p>
+                            <p><strong>Location:</strong> ${event.location}</p>
+                            <p>${event.description}</p>
+                        </div>
+                        <div class="event-actions">
+                            <button class="btn btn-danger btn-sm delete-btn" data-id="${event.id}">Delete</button>
+                        </div>
+                    `;
+                    eventsList.appendChild(eventCard);
+                });
+                
+                // Add event listeners to delete buttons
+                document.querySelectorAll('.delete-btn').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const eventId = parseInt(this.getAttribute('data-id'));
+                        deleteEvent(eventId);
+                    });
+                });
+            }
+        }
+
+        // Function to delete an event
+        function deleteEvent(id) {
+            if (confirm('Are you sure you want to delete this event?')) {
+                events = events.filter(event => event.id !== id);
+                renderEvents();
+            }
+        }
+
+        // Function to format date
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString(undefined, options);
+        }
+
+        // Initialize the page
+        renderEvents();
+
+        (function() {
+            try {
+                // Get the current year
+                const currentYear = new Date().getFullYear();
+                // Set it inside the span with id="year"
+                document.getElementById("year").textContent = currentYear;
+            } catch (error) {
+                console.error("Error setting footer year:", error);
+            }
+        })();
+    </script>
+</body>
+</html>

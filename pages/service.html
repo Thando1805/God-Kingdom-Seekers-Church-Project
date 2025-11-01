@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>God Kingdom Seekers Church — Live Service Recording</title>
+  <style>
+    :root{
+      --red: #d62828;
+      --blue: #003566;
+      --yellow: #ffcc00;
+      --dark-bg: #0a0a0f;
+      --light-text: #f8f9fa;
+      --card-bg: #1b1b2f;
+    }
+
+    /* Page reset */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+    margin:0;
+    font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    color:var(--text);
+    background: linear-gradient(135deg, var(--blue), var(--dark-bg));
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    overflow-y:auto;
+    }
+
+    /* container */
+    .container{max-width:1100px;margin:0 auto;padding:0 26px}
+
+    /* header */
+    .site-header{
+      padding:18px 0; 
+      background: linear-gradient(90deg, var(--blue), var(--red));
+      color: white;
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      border-bottom: 3px solid var(--yellow);
+    }
+    .header-inner{display:flex;align-items:center;justify-content:space-between}
+    .brand{display:flex;align-items:center;gap:12px}
+    img{width:48px;height:48px}
+    .title{
+      font-weight:700;
+      background: linear-gradient(to right, var(--yellow), white);
+      -webkit-background-clip: text;
+      color: transparent; 
+    }
+    .subtitle{font-size:13px;color:rgba(255,255,255,0.8);font-weight:500}
+
+    /* nav */
+    .nav a{color:rgba(255,255,255,0.9);text-decoration:none;margin-left:18px;font-weight:600}
+    .nav a:hover{opacity:0.85}
+
+    /* hero */
+    .hero{
+      padding:28px 0 60px;
+      background: linear-gradient(to right, var(--yellow), var(--red));
+      -webkit-background-clip: text;
+      color: transparent;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .hero-title{font-size:40px;text-align:center;margin:10px 0 0}
+    .hero-sub{text-align:center;color:rgba(255,255,255,0.85);margin-top:6px}
+
+    /* glass panel */
+    .glass-panel{
+    margin-top:28px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+    border-radius:18px;
+    border:1px solid var(--glass-border);
+    padding:34px;
+    box-shadow: 0 6px 30px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.02);
+    backdrop-filter: blur(8px) saturate(120%);
+    }
+
+    /* panel titles */
+    .panel-title{text-align:center;margin:0 0 18px;font-size:18px}
+    .panel-sub{text-align:center;margin:0 0 18px;color:rgba(255,255,255,0.85)}
+
+    /* live feed card */
+    .live-feed{display:flex;flex-direction:column;align-items:center;gap:16px}
+    #liveVideo{
+    width:100%;
+    max-width:860px;
+    height:360px;
+    background: linear-gradient(90deg,#222,#444);
+    border-radius:12px;
+    object-fit:cover;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    }
+
+    /* controls row */
+    .live-controls{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:6px}
+    .btn{
+    border:0;padding:10px 16px;border-radius:8px;font-weight:700;cursor:pointer;box-shadow:0 6px 16px rgba(0,0,0,0.35);
+    }
+    .btn .icon{margin-right:8px}
+    .btn-blue{background:#2f6df7;color:#fff}
+    .btn-red{background:#e33b3b;color:#fff}
+    .btn-gold{background:#c78f16;color:#fff}
+    .btn-danger{background:#df4b4b;color:#fff}
+
+    /* playback */
+    .playback-wrap{display:flex;justify-content:center}
+    #playback{
+    width:100%;
+    max-width:860px;
+    height:320px;
+    border-radius:10px;
+    background:#000;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    }
+
+    /* footer */
+    .site-footer{
+      padding:20px 0;
+      text-align:center;
+      color:rgba(255,255,255,0.8);
+      background: linear-gradient(90deg, var(--red), var(--blue));;
+
+    }
+
+    /* small bolt badge */
+    .bolt-badge{
+    position:fixed;right:18px;bottom:18px;background:#fff;color:#111;padding:6px 10px;border-radius:8px;font-weight:700;
+    display:flex;align-items:center;gap:8px;box-shadow:0 6px 18px rgba(0,0,0,0.25);
+    }
+    .bolt-badge span{background:#111;color:#fff;padding:4px 7px;border-radius:4px;font-weight:800}
+
+    /* responsive */
+    @media (max-width:880px){
+    #liveVideo, #playback{height:220px}
+    .hero-title{font-size:30px}
+    .nav a{margin-left:10px}
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+          <img src="../assets/icons/GKSC_logo.jpg" alt="God Kingdom Seekers Church">
+        <div class="brand-text">
+          <div class="title">God Kingdom Seekers Church</div>
+          <div class="subtitle">Live Service Recording</div>
+        </div>
+      </div>
+      <nav class="nav">
+        <a href="../pages/home.html">Home</a>
+        <a href="../pages/about.html">About</a>
+        <a href="../pages/events.html">Events</a>
+        <a href="../pages/service.html">Service</a>
+        <a href="../pages/contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <h1 class="hero-title">Live Service Recording</h1>
+        <p class="hero-sub">Record, manage, and share your service content</p>
+
+        <!-- Live Feed -->
+        <div class="glass-panel live-panel">
+          <h3 class="panel-title">Live Feed</h3>
+          <div class="live-feed">
+            <video id="liveVideo" autoplay playsinline muted></video>
+            <div class="live-controls">
+              <button id="btnVideo" class="btn btn-blue">📷 Video On</button>
+              <button id="btnMic" class="btn btn-blue">🎙 Mic On</button>
+              <button id="btnRecord" class="btn btn-red">⏺ Start Recording</button>
+              <button id="btnDownload" class="btn btn-gold" style="display:none">⬇ Download</button>
+              <button id="btnDelete" class="btn btn-danger" style="display:none">🗑 Delete</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Playback (hidden until recording done) -->
+        <div id="playbackPanel" class="glass-panel playback-panel" style="display:none">
+          <h3 class="panel-title">Recording Playback</h3>
+          <p class="panel-sub">Review your recorded service</p>
+          <div class="playback-wrap">
+            <video id="playback" controls></video>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; <span id="year"></span> God Kingdom Seekers Church. Professional service recording solution.</p>
+    </div>
+  </footer>
+
+  <div class="bolt-badge"> <span>b</span> Made in Bolt</div>
+
+  <script>
+    const liveVideo = document.getElementById('liveVideo');
+const playback = document.getElementById('playback');
+const playbackPanel = document.getElementById('playbackPanel');
+
+const btnVideo = document.getElementById('btnVideo');
+const btnMic = document.getElementById('btnMic');
+const btnRecord = document.getElementById('btnRecord');
+const btnDownload = document.getElementById('btnDownload');
+const btnDelete = document.getElementById('btnDelete');
+
+let localStream = null;
+let recorder = null;
+let recordedBlobs = [];
+let isVideoEnabled = true;
+let isMicEnabled = true;
+
+// Start camera stream
+async function startCamera() {
+  try {
+    localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+    liveVideo.srcObject = localStream;
+  } catch (err) {
+    console.error('Camera error:', err);
+    alert('Please allow camera and microphone access.');
+  }
+}
+
+// Toggle video track
+function toggleVideo() {
+  if (!localStream) return;
+  const track = localStream.getVideoTracks()[0];
+  if (track) {
+    track.enabled = !track.enabled;
+    isVideoEnabled = track.enabled;
+    btnVideo.textContent = isVideoEnabled ? '📷 Video On' : '🚫 Video Off';
+  }
+}
+
+// Toggle mic track
+function toggleMic() {
+  if (!localStream) return;
+  const track = localStream.getAudioTracks()[0];
+  if (track) {
+    track.enabled = !track.enabled;
+    isMicEnabled = track.enabled;
+    btnMic.textContent = isMicEnabled ? '🎙 Mic On' : '🔇 Mic Off';
+  }
+}
+
+    // Start or stop recording
+    function toggleRecording() {
+        if (recorder && recorder.state === 'recording') {
+            recorder.stop();
+            btnRecord.textContent = '⏺ Start Recording';
+        } else {
+            if (!localStream) {
+            alert('No camera stream available.');
+            return;
+        }
+        recordedBlobs = [];
+        try {
+            recorder = new MediaRecorder(localStream, { mimeType: 'video/webm;codecs=vp9,opus' });
+        } catch {
+            recorder = new MediaRecorder(localStream);
+        }
+
+            recorder.ondataavailable = (e) => {
+            if (e.data && e.data.size > 0) recordedBlobs.push(e.data);
+        };
+
+        recorder.onstop = () => {
+            const blob = new Blob(recordedBlobs, { type: 'video/webm' });
+            playback.src = URL.createObjectURL(blob);
+            playbackPanel.style.display = 'block';
+            btnDownload.style.display = 'inline-block';
+            btnDelete.style.display = 'inline-block';
+
+            btnDownload.onclick = () => {
+            const a = document.createElement('a');
+            a.href = playback.src;
+            a.download = `recording-${Date.now()}.webm`;
+            a.click();
+            };
+
+            btnDelete.onclick = () => {
+            playback.src = '';
+            playback.load();
+            playbackPanel.style.display = 'none';
+            btnDownload.style.display = 'none';
+            btnDelete.style.display = 'none';
+            };
+        };
+
+        recorder.start();
+        btnRecord.textContent = '⏹ Stop Recording';
+        }
+    }
+
+    // Event listeners
+    btnVideo.addEventListener('click', toggleVideo);
+    btnMic.addEventListener('click', toggleMic);
+    btnRecord.addEventListener('click', toggleRecording);
+
+    startCamera();
+
+    (function() {
+            try {
+                // Get the current year
+                const currentYear = new Date().getFullYear();
+                // Set it inside the span with id="year"
+                document.getElementById("year").textContent = currentYear;
+            } catch (error) {
+                console.error("Error setting footer year:", error);
+            }
+        })();
+  </script>
+</body>
+</html>
